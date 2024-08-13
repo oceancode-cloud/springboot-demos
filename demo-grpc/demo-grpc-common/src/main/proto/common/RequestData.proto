@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.demo.grpc.function.model.user";
+option java_outer_classname = "UserInfoModel";
+
+
+message RequestData{
+  map<string, string> data = 1;
+}

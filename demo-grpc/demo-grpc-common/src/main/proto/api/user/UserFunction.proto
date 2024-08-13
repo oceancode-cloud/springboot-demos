@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.demo.grpc.function.api.user";
+option java_outer_classname = "UserFunctionDescriptor";
+
+import "model/user/UserLoginRequest.proto";
+import "model/user/UserInfo.proto";
+import "google/protobuf/empty.proto";
+
+message UserLoginReq_ {
+  UserLoginRequest param = 1;
+}
+
+message UserLoginRes_ {
+  string errorCode = 1;
+  
+}
+message GetUserInfoByIdReq_ {
+  uint64 id = 1;
+}
+
+message GetUserInfoByIdRes_ {
+  string errorCode = 1;
+  repeated UserInfo data = 2;
+}
+
+service UserFunction{
+  rpc userLogin(UserLoginReq_) returns(UserLoginRes_);
+  rpc getUserInfoById(GetUserInfoByIdReq_) returns(GetUserInfoByIdRes_);
+}

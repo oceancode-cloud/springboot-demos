@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.mgr.mapper.master.domain.UserMapper">
+  <insert id="insertOne" parameterType="com.demo.mgr.model.domain.User"  useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO `user`
+    <trim prefix = "(" suffix = ")" suffixOverrides = ",">
+    `created_at`,
+    `id`,
+    <if test="nickname != null ">`nickname`,</if>
+    `password`,
+    `updated_at`,
+    `username`,
+    </trim>
+    <trim prefix = "VALUES(" suffix = ")" suffixOverrides=",">
+    #{createdAt},
+    #{id},
+    <if test="nickname != null ">#{nickname},</if>
+    #{password},
+    #{updatedAt},
+    #{username},
+    </trim>
+  </insert>
+
+  <select id="selectById" resultType="com.demo.mgr.model.domain.User" parameterType="Long">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `password` AS `password`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE `id`=#{id}
+  </select>
+
+  <select id="selectByIdWithBusiness" resultType="com.demo.mgr.model.domain.User" parameterType="Long">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `password` AS `password`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE `id`=#{id}
+  </select>
+
+  <select id="selectByIdsWithBusinessField" resultType="com.demo.mgr.model.domain.User" parameterType="Long">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `password` AS `password`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE `id` IN
+    <foreach collection="list" open="(" close=")" separator="," item="item">
+    #{item}
+    </foreach>
+  </select>
+
+  <select id="selectByIds" resultType="com.demo.mgr.model.domain.User" parameterType="Long">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `password` AS `password`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE `id` IN
+    <foreach collection="list" open="(" close=")" separator="," item="item">
+    #{item}
+    </foreach>
+  </select>
+
+  <select id="selectOne" resultType="com.demo.mgr.model.domain.User" parameterType="com.demo.mgr.model.domain.User">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `password` AS `password`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE
+    <trim prefix = "" suffix = "" suffixOverrides = "AND">
+    <if test="createdAt != null ">`created_at` = #{createdAt} AND </if>
+    <if test="id != null ">`id` = #{id} AND </if>
+    <if test="nickname != null ">`nickname` = #{nickname} AND </if>
+    <if test="password != null ">`password` = #{password} AND </if>
+    <if test="updatedAt != null ">`updated_at` = #{updatedAt} AND </if>
+    <if test="username != null ">`username` = #{username} AND </if>
+    </trim>
+    LIMIT 2
+  </select>
+
+  <select id="selectAll" resultType="com.demo.mgr.model.domain.User">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    LIMIT 3000
+  </select>
+
+  <select id="selectAllByEntity" resultType="com.demo.mgr.model.domain.User">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE
+    <trim prefix = "" suffix = "" suffixOverrides = "AND">
+    <if test="createdAt != null ">`created_at` = #{createdAt} AND </if>
+    <if test="id != null ">`id` = #{id} AND </if>
+    <if test="nickname != null ">`nickname` = #{nickname} AND </if>
+    <if test="password != null ">`password` = #{password} AND </if>
+    <if test="updatedAt != null ">`updated_at` = #{updatedAt} AND </if>
+    <if test="username != null ">`username` = #{username} AND </if>
+    </trim>
+    LIMIT 3000
+  </select>
+
+  <delete id="deleteById">
+    DELETE FROM `user` WHERE `id`=#{id}
+  </delete>
+
+  <delete id="deleteByIdWithBusiness">
+    UPDATE `user`
+    SET
+    WHERE
+    `id`=#{id}
+  </delete>
+
+  <update id="updateById" parameterType="com.demo.mgr.model.domain.User">
+    UPDATE `user` SET
+    <trim prefix = "" suffix = "" suffixOverrides = ",">
+    `created_at` = #{createdAt} ,
+    `id` = #{id} ,
+    <if test="nickname != null ">`nickname` = #{nickname} , </if>
+    `password` = #{password} ,
+    `updated_at` = #{updatedAt} ,
+    `username` = #{username} ,
+    </trim>
+    WHERE `id`=#{id}
+  </update>
+
+  <update id="updateByIdWithBusiness" parameterType="com.demo.mgr.model.domain.User">
+    UPDATE `user` SET
+    <trim prefix = "" suffix = "" suffixOverrides = ",">
+    `created_at` = #{createdAt} ,
+    `id` = #{id} ,
+    <if test="nickname != null ">`nickname` = #{nickname} , </if>
+    `password` = #{password} ,
+    `updated_at` = #{updatedAt} ,
+    `username` = #{username} ,
+    </trim>
+    WHERE `id`=#{id}
+  </update>
+
+  <select id="existsById" resultType="Integer">
+     SELECT 1 FROM `user` WHERE `id` = #{id}
+  </select>
+
+  <select id="existsByIds" resultType="Integer">
+     SELECT COUNT(*) FROM `user` WHERE `id` IN
+    <foreach collection="list" open="(" close=")" separator="," item="item">
+    #{item}
+    </foreach>
+  </select>
+
+  <select id="selectByPage" resultType="com.demo.mgr.model.domain.User">
+    SELECT
+    t.`created_at` AS `createdAt`,
+    t.`id` AS `id`,
+    t.`nickname` AS `nickname`,
+    t.`updated_at` AS `updatedAt`,
+    t.`username` AS `username`
+    FROM (SELECT `id` FROM `user`
+    <where>
+    <trim prefix = "" suffix = "" suffixOverrides = "AND">
+    <if test="entity.createdAt != null ">`created_at` = #{entity.createdAt} AND </if>
+    <if test="entity.nickname != null ">`nickname` = #{entity.nickname} AND </if>
+    <if test="entity.updatedAt != null ">`updated_at` = #{entity.updatedAt} AND </if>
+    <if test="entity.username != null ">`username` = #{entity.username} AND </if>
+    <if test="lastId != null">`id` >= #{lastId} AND </if>
+    </trim>
+    </where>
+    LIMIT <if test="lastId == null">#{offset},</if>#{size}
+    )g LEFT JOIN `user` t ON t.`id`=g.`id`
+  </select>
+
+  <select id="selectColumnByUsername" resultType="com.demo.mgr.model.domain.User" parameterType="String">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE `username`=#{username}
+  </select>
+
+  <select id="selectColumnByUsernameWithBusiness" resultType="com.demo.mgr.model.domain.User" parameterType="String">
+    SELECT
+    `created_at` AS `createdAt`,
+    `id` AS `id`,
+    `nickname` AS `nickname`,
+    `updated_at` AS `updatedAt`,
+    `username` AS `username`
+    FROM `user`
+    WHERE
+    `username`=#{username}
+  </select>
+</mapper>

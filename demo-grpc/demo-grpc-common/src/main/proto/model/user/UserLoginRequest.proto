@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.demo.grpc.function.model.user";
+option java_outer_classname = "UserLoginRequestModel";
+
+
+message UserLoginRequest{
+  string username = 1;
+  string password = 2;
+}
